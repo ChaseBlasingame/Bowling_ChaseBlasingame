@@ -1,0 +1,30 @@
+﻿@model Bowling.Models.Game
+
+<div class="row">
+    <div class="col-1"></div>
+    @for (var i = 1; i <= Model.Frames.Length; i++)
+    {
+        <div class="col-1">
+            <h3>@i</h3>
+        </div>
+    }
+    <div class="col-1"></div>
+</div>
+
+
+<div class="row">
+    <div class="col-1 card border-info mb-3" style="max-width: 20rem;">
+        <h2>P1</h2>
+    </div>
+    @{
+        var totalScore = 0;
+    }
+    @foreach (var frame in Model.Frames)
+    {
+        totalScore += frame.TotalScore;
+        @Html.Partial("_Frame", frame, new ViewDataDictionary { { "totalScore", totalScore }})
+    }
+    <div class="col-1 card border-info mb-3" style="max-width: 20rem;">
+        <h3>@Model.TotalScore</h3>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@model Bowling.Models.Frame
+@{
+    var totalScore = (int)ViewData["totalScore"];
+
+    var displayScores = new string[3];
+    for (var i = 0; i <= displayScores.Length; i++)
+    {
+        if (Model.StrikeIndexes().Contains(i))
+        {
+            displayScores[i] = "X";
+        }
+        else if (Model.SpareIndex().HasValue && Model.SpareIndex() == i)
+        {
+            displayScores[i] = "/";
+        }
+        else if (Model.Scores.Count > i)
+        {
+            displayScores[i] = Model.Scores[i].ToString();
+        }
+    }
+
+    // Ignore 3rd bowl except in the case of the last frame with 3 bowls
+    if (String.IsNullOrEmpty(displayScores[2]))
+    {
+        displayScores[2] = displayScores[1];
+        displayScores[1] = String.Empty;
+    }
+}
+
+<div class="col-1 card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-3">
+                <text>@displayScores[0]</text>
+            </div>
+            <div class="col-4">
+                <text>@displayScores[1]</text>
+            </div>
+            <div class="col-3">
+                <text>@displayScores[2]</text>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">@totalScore</h4>
+    </div>
+</div>

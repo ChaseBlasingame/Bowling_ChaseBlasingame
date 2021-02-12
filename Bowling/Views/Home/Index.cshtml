@@ -1,0 +1,6 @@
+﻿@model Bowling.ViewModels.BowlingViewModel
+    
+@foreach (var game in Model.Games)
+{
+    @Html.Partial("_Game", game)
+}
